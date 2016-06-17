@@ -1,4 +1,4 @@
-package quartz;
+package main.quartz;
 
 import java.util.Date;
 
