@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="GongdanDetailMapper" >
+  <insert id="AddGongdanDetailBatch" parameterType="java.util.List">
+  	insert INTO t_bi_oagongdandetail 
+  	(igongdanId,iqa,isubQa,sqaName,ssubQaName,skhName,
+  	szcMobileNum,slxNum,sjxNum,shuxing,syusuan,syongtu,syxloupan,
+  	syxbankuai,skfsName,sxiangmu,skemu,szisuqa,sshiXiao,
+  	icreatetime,iupdatetime,sqaContent,szuoxi,szuzhang,skewei,syewuyuan,
+  	szzHandleSuggestion,skwHandleSuggestion,sywyHandleSuggestion) 
+  	values 
+  	<foreach item="item" index="index" collection="list" open="" separator="," close="">
+		(#{item.igongdanId},#{item.iqa},#{item.isubQa},#{item.sqaName},#{item.ssubQaName},#{item.skhName},
+		#{item.szcMobileNum},#{item.slxNum},#{item.sjxNum},#{item.shuxing},#{item.syusuan},#{item.syongtu},#{item.syxloupan},
+		#{item.syxbankuai},#{item.skfsName},#{item.sxiangmu},#{item.skemu},#{item.szisuqa},#{item.sshiXiao},
+		#{item.icreateTime},#{item.iupdateTime},#{item.sqaContent},#{item.szuoxi},#{item.szuzhang},#{item.skewei},#{item.syewuyuan},
+		#{item.szzHandleSuggestion},#{item.skwHandleSuggestion},#{item.sywyHandleSuggestion})
+	</foreach>
+  </insert>
+  <select id="getGdDetailByParam" resultType="java.lang.Integer" parameterType="java.util.Map" >
+  select count(1) from t_bi_oagongdandetail where 1=1  
+  	<if test="igongdanId != null and igongdanId != 0">
+  		and igongdanId = #{igongdanId}
+  	</if>
+  </select>
+  <update id="updateGdDetailById" parameterType="com.pingan.haofang.po.GongdanDetail">
+  	update t_bi_oagongdandetail 
+  	set 
+  	<if test="igongdanId != null and igongdanId != ''">
+  		igongdanId=#{igongdanId}
+  	</if>
+  	<if test="iqa != null and iqa != ''">
+  		,iqa=#{iqa}
+  	</if>
+  	<if test="isubQa != null and isubQa != ''">
+  		,isubQa=#{isubQa}
+  	</if>
+  	<if test="sqaName != null and sqaName != ''">
+  		,sqaName=#{sqaName}
+  	</if>
+  	<if test="ssubQaName != null and ssubQaName != ''">
+  		,ssubQaName=#{ssubQaName}
+  	</if>
+  	<if test="skhName != null and skhName != ''">
+  		,skhName=#{skhName}
+  	</if>
+  	<if test="szcMobileNum != null and szcMobileNum != ''">
+  		,szcMobileNum=#{szcMobileNum}
+  	</if>
+  	<if test="slxNum != null and slxNum != ''">
+  		,slxNum=#{slxNum}
+  	</if>
+  	<if test="sjxNum != null and sjxNum != ''">
+  		,sjxNum=#{sjxNum}
+  	</if>
+  	<if test="shuxing != null and shuxing != ''">
+  		,shuxing=#{shuxing}
+  	</if>
+  	<if test="syusuan != null and syusuan != ''">
+  		,syusuan=#{syusuan}
+  	</if>
+  	<if test="syongtu != null and syongtu != ''">
+  		,syongtu=#{syongtu}
+  	</if>
+  	<if test="syxloupan != null and syxloupan != ''">
+  		,syxloupan=#{syxloupan}
+  	</if>
+  	<if test="syxbankuai != null and syxbankuai != ''">
+  		,syxbankuai=#{syxbankuai}
+  	</if>
+  	<if test="skfsName != null and skfsName != ''">
+  		,skfsName=#{skfsName}
+  	</if>
+  	<if test="sxiangmu != null and sxiangmu != ''">
+  		,sxiangmu=#{sxiangmu}
+  	</if>
+  	<if test="skemu != null and skemu != ''">
+  		,skemu=#{skemu}
+  	</if>
+  	<if test="szisuqa != null and szisuqa != ''">
+  		,szisuqa=#{szisuqa}
+  	</if>
+  	<if test="sshiXiao != null and sshiXiao != ''">
+  		,sshiXiao=#{sshiXiao}
+  	</if>
+  	<if test="icreateTime != null and icreateTime != ''">
+  		,icreatetime=#{icreateTime}
+  	</if>
+  	<if test="iupdateTime != null and iupdateTime != ''">
+  		,iupdatetime=#{iupdateTime}
+  	</if>
+  	<if test="sqaContent != null and sqaContent != ''">
+  		,sqaContent=#{sqaContent}
+  	</if>
+  	<if test="szuoxi != null and szuoxi != ''">
+  		,szuoxi=#{szuoxi}
+  	</if>
+  	<if test="szuzhang != null and szuzhang != ''">
+  		,szuzhang=#{szuzhang}
+  	</if>
+  	<if test="skewei != null and skewei != ''">
+  		,skewei=#{skewei}
+  	</if>
+  	<if test="syewuyuan != null and syewuyuan != ''">
+  		,syewuyuan=#{syewuyuan}
+  	</if>
+  	<if test="szzHandleSuggestion != null and szzHandleSuggestion != ''">
+  		,szzHandleSuggestion=#{szzHandleSuggestion}
+  	</if>
+  	<if test="skwHandleSuggestion != null and skwHandleSuggestion != ''">
+  		,skwHandleSuggestion=#{skwHandleSuggestion}
+  	</if>
+  	<if test="sywyHandleSuggestion != null and sywyHandleSuggestion != ''">
+  		,sywyHandleSuggestion=#{sywyHandleSuggestion}
+  	</if>
+  	where igongdanId = #{igongdanId}
+  </update>
+</mapper>

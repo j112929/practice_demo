@@ -1,0 +1,61 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.2.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+ <!-- BoneCp Datasource 
+ <bean id="dataSourceBoneCp" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+  <property name="driverClass" value="${db.driverClass}" />
+  <property name="jdbcUrl" value="${db.url}" />
+  <property name="username" value="${db.username}" />
+  <property name="password" value="${db.password}" />
+  <property name="idleConnectionTestPeriodInMinutes" value="2" />
+  <property name="idleMaxAgeInMinutes" value="2" />
+  <property name="maxConnectionsPerPartition" value="2" />
+  <property name="minConnectionsPerPartition" value="0" />
+  <property name="partitionCount" value="2" />
+  <property name="acquireIncrement" value="1" />
+  <property name="statementsCacheSize" value="100" />
+  <property name="lazyInit" value="true"/>
+  <property name="maxConnectionAgeInSeconds" value="20"/>
+  <property name="defaultReadOnly" value="true"/>
+ </bean>-->
+ 
+ 
+  <!-- Hikari Datasource -->
+ <bean id="dataSourceHikari" class="com.zaxxer.hikari.HikariDataSource"  destroy-method="shutdown">
+  <!-- <property name="driverClassName" value="${db.driverClass}" /> --> <!-- 无需指定，除非系统无法自动识别 -->
+  <property name="jdbcUrl" value="jdbc:mysql://10.20.99.105:3306/datahouse_db?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true" />
+  <property name="username" value="javadatacenter" />
+  <property name="password" value="1ou@6o2R" />
+   <!-- 连接只读数据库时配置为true， 保证安全 -->
+  <property name="readOnly" value="false" />
+  <!-- 等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException， 缺省:30秒 -->
+  <property name="connectionTimeout" value="30000" />
+  <!-- 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟 -->
+  <property name="idleTimeout" value="600000" />
+  <!-- 一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒，参考MySQL wait_timeout参数（show variables like '%timeout%';） -->
+  <property name="maxLifetime" value="1800000" />
+  <!-- 连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count) -->
+  <property name="maximumPoolSize" value="15" />
+ </bean>
+ 
+ <bean id="sqlSessionFactory_datahouse_db" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceHikari" />
+		<!-- <property name="configLocation" value="classpath:mysqlmap-config.xml" />
+		<property name="mapperLocations">
+			<value>classpath*:main/db/OaGongdanDetailMapper.xml</value>
+		</property> -->
+	</bean>
+ <bean id="sqlSession_datahouse_db" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory_datahouse_db" />
+	</bean>
+</beans>
