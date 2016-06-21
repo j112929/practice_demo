@@ -1,0 +1,70 @@
+<!doctype html>
+<script type="text/javascript">
+<!--
+
+//-->
+function PhoneListCtrl($scope) {
+	  $scope.phones = [
+	    {"name": "Nexus S",
+	     "snippet": "Fast just got faster with Nexus S."},
+	    {"name": "Motorola XOOM™ with Wi-Fi",
+	     "snippet": "The Next, Next Generation tablet."},
+	    {"name": "MOTOROLA XOOM™",
+	     "snippet": "The Next, Next Generation tablet."}
+	  ];
+	}
+	
+describe('PhoneCat controllers', function() {
+
+	  describe('PhoneListCtrl', function(){
+
+	    it('should create "phones" model with 3 phones', function() {
+	      var scope = {},
+	      ctrl = new PhoneListCtrl(scope);
+
+	      expect(scope.phones.length).toBe(3);
+	    });
+	  });
+	});	
+	
+describe('PhoneCat App', function() {
+
+	  describe('Phone list view', function() {
+
+	    beforeEach(function() {
+	      browser().navigateTo('../../app/index.html');
+	    });
+
+
+	    it('should filter the phone list as user types into the search box', function() {
+	      expect(repeater('.phones li').count()).toBe(3);
+
+	      input('query').enter('nexus');
+	      expect(repeater('.phones li').count()).toBe(1);
+
+	      input('query').enter('motorola');
+	      expect(repeater('.phones li').count()).toBe(2);
+	    });
+	  });
+	});
+</script>
+<html ng-app>
+    <head>
+        <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    </head>
+    <body>
+        Your name: <input type="text" ng-model="yourname" placeholder="World">
+        <hr>
+        Hello {{yourname || 'World'}}!
+        
+        <p>Nothing here {{'yet' + '!'}}</p>
+        <p>1 + 2 = {{ 1 + 2 }}</p>
+        
+        <ul>
+		    <li ng-repeat="phone in phones">
+		      {{phone.name}}
+		    <p>{{phone.snippet}}</p>
+		    </li>
+		  </ul>
+    </body>
+</html>
